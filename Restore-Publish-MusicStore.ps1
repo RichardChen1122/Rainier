@@ -80,8 +80,6 @@ function CloneAndBuild{
    
     cd $RepoRoot;
 
-    Read-Host;
-
     cmd /c .\build.cmd;
 
 }
@@ -147,15 +145,11 @@ Cleanup;
 
 CloneAndBuild "release1.1";
 
-Read-Host;
-
 RestoreAndPublish "MusicStore" "release1.1";
 
 Cleanup;
 
 CloneAndBuild("dev");
-
-Read-Host;
 
 RestoreAndPublish "MusicStore" "dev";
 
