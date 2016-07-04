@@ -80,8 +80,6 @@ function CloneAndBuild{
    
     cd $RepoRoot;
 
-    Read-Host;
-
     cmd /c .\build.cmd;
 
 }
@@ -147,8 +145,6 @@ Cleanup;
 
 CloneAndBuild "release";
 
-Read-Host;
-
 RestoreAndPublish "HelloWorldMvc" "release";
 RestoreAndPublish "BasicKestrel" "release";
 RestoreAndPublish "StressMvc" "release";
@@ -156,8 +152,6 @@ RestoreAndPublish "StressMvc" "release";
 Cleanup;
 
 CloneAndBuild("dev");
-
-Read-Host;
 
 RestoreAndPublish "HelloWorldMvc" "dev";
 RestoreAndPublish "BasicKestrel" "dev";
