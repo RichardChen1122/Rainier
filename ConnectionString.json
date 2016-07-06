@@ -1,11 +1,40 @@
-//testing
 {
-	"WinMusicStoreDev":{"ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstorehome-scus-db1;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"},
-
-	"WinMusicStoreRelease":{"ConnectionString":"Server=tcp:wpt-perf.database.windows.net,1433;Database=musicstore-winreliability;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"},
-
-	"WinMusicStoreE2EDev":{"ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-Kestrel;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"},
-
-	"WinMusicStoreE2ERelease":{"ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-scus-db1;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"}
-
+"Windows":
+[
+{"Name":"MusicStoreHome",
+ "Branch":"dev",
+ "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstorehome-scus-db1;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+},
+{"Name":"MusicStoreHome",
+ "Branch":"release1.1",
+ "ConnectionString":"Server=tcp:wpt-perf.database.windows.net,1433;Database=musicstore-winreliability;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+},
+{"Name":"MusicStoreE2E",
+ "Branch":"dev",
+ "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-Kestrel;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+},
+{"Name":"MusicStoreE2E",
+ "Branch":"release1.1",
+ "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-scus-db1;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+}	
+],
+"Linux":
+[
+{"Name":"MusicStoreHome",
+ "Branch":"dev",
+ "ConnectionString": "Server=tcp:wpt-perf.database.windows.net,1433;Database=MusicStore-E2E-Kestrel;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+},
+{"Name":"MusicStoreHome",
+ "Branch":"release1.1",
+ "ConnectionString":"Server=tcp:wpt-perf.database.windows.net,1433;Database=musicstore-linuxreliability;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+},
+{"Name":"MusicStoreE2E",
+ "Branch":"dev",
+ "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-linux-kestrel;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+},
+{"Name":"MusicStoreE2E",
+ "Branch":"release1.1",
+ "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-linux;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+}		
+]
 }
