@@ -97,7 +97,7 @@ function ChangeConfiguration{
         $FilePath=".\ConnectionString.json";
         $content=( ( Get-Content -Path $FilePath -Raw ) | ConvertFrom-JSON )
         
-        $jsonitem=$content.$content.Windows | where {$_.Name -eq $AppConnectionStringName -and $_.Branch -eq $Branch };              
+        $jsonitem=$content.Windows | where {$_.Name -eq $AppConnectionStringName -and $_.Branch -eq $Branch };              
         $ConnectionString=[string]$jsonitem.ConnectionString;
         cmd /c copy /y $RepoPath\Build\$TestappName\$Branch\netcoreapp1.0\publish\web.config $RepoPath\Build\$TestappName\$Branch\netcoreapp1.0\publish\wwwroot\;
         (Get-Content "$SitePhysicalPath\..\config.json").Replace(
