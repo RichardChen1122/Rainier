@@ -25,7 +25,7 @@ sh build.sh
 
 function ReplaceDataBase(){
 	if [ ${1} = "MusicStoreHome" ] && [ ${2} = "release1.1" ];then
-sudo sed -i '12i ""ConnectionString":"Server=tcp:wpt-perf.database.windows.net,1433;Database=musicstore-linuxreliability;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" ' config.json
+sudo sed -i '12i "ConnectionString":"Server=tcp:wpt-perf.database.windows.net,1433;Database=musicstore-linuxreliability;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" ' config.json
 	elif [ ${1} = "MusicStoreE2E" ] && [ ${2} = "release1.1" ];then
 sudo sed -i '12i "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-linux;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"' config.json
         elif [ ${1} = "MusicStoreHome" ] && [ ${2} = "dev" ];then
