@@ -32,7 +32,7 @@ sudo /home/asplab/.dotnet/dotnet --version > ${LogSharePath}/Linux${1}${2}/versi
 sudo /home/asplab/.dotnet/dotnet restore --infer-runtimes > ${LogSharePath}/Linux${1}${2}/restore.log 
 sudo /home/asplab/.dotnet/dotnet publish -c release > ${LogSharePath}/Linux${1}${2}/publish.log 
 cd bin/release/netcoreapp1.0/publish
-sudo /home/asplab/.dotnet/dotnet HelloWorldMvc.dll &> ${LogSharePath}/Linux${1}${2}/Kestrel.log
+sudo /home/asplab/.dotnet/dotnet ${1}.dll &> ${LogSharePath}/Linux${1}${2}/Kestrel.log
 }
 
 CleanUp
