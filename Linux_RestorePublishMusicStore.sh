@@ -12,43 +12,51 @@ sudo rm -rf ~/.local
 sudo rm -rf /usr/share/dotnet
 sudo rm /usr/share/nginx/*.log
 sudo rm -rf /tmp/NugetScratch
+sudo rm -rf /usr/share/nginx/on
+sudo rm -rf ~/jq
 }
+
 
 function CloneAndBuild()
 {
+cd ~
+wget http://stedolan.github.io/jq/download/linux64/jq
+chmod 777 ./jq
+sudo cp jq /usr/bin
 mkdir -p ~/${1}
 cd ~/${1}
 git clone https://github.com/aspnet/musicStore/
 cd musicStore
 sh build.sh
 }
-
 function ReplaceDataBase(){
-	if [ ${1} = "MusicStoreHome" ] && [ ${2} = "release1.1" ];then
-sudo sed -i '12i "ConnectionString":"Server=tcp:wpt-perf.database.windows.net,1433;Database=musicstore-linuxreliability;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" ' config.json
-	elif [ ${1} = "MusicStoreE2E" ] && [ ${2} = "release1.1" ];then
-sudo sed -i '12i "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-linux;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"' config.json
-        elif [ ${1} = "MusicStoreHome" ] && [ ${2} = "dev" ];then
-sudo sed -i '12i "ConnectionString": "Server=tcp:wpt-perf.database.windows.net,1433;Database=MusicStore-E2E-Kestrel;User ID=asplab@wpt-perf;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"' config.json
-	else
-sudo sed -i '12i "ConnectionString":"Server=tcp:wpt-perf-scus.database.windows.net,1433;Database=musicstoreE2E-linux-kestrel;User ID=asplab@wpt-perf-scus;Password=iis6!dfu;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" ' config.json
-        fi
+length=$(cat ~/Rainier/ConnectionString.json | ~/jq '.Linux | length')
+for ((i=0;i<$length;i++))
+do
+Branch=$(cat ~/Rainier/ConnectionString.json | ~/jq '.Linux['$i'].Branch')
+Name=$(cat ~/Rainier/ConnectionString.json | ~/jq '.Linux['$i'].Name')
+if [ '"'${1}'"' = $Name ] && [ '"'${2}'"' = $Branch ];then
+ConnectionString=$(cat ~/Rainier/ConnectionString.json | ~/jq '.Linux['$i'].ConnectionString')
+break
+fi
+done
+Replace='"Server=(localdb)[\][\]MSSQLLocalDB;Database=MusicStore;Trusted_Connection=True;MultipleActiveResultSets=true;Connect Timeout=30;"'
+sudo sed -i "s#$Replace#$ConnectionString#g" config.json
 }
 
 function RestoreAndPublish()
 {
 sudo mkdir -p ${LogSharePath}/Linux${1}${2}
 cd ~/${2}/musicStore/src/MusicStore
-sudo sed -i 's/"net451": { }/\/\/"net451": {}/g' project.json
+sudo sed -i 's/"net451"/\/\/"net451"/g' project.json
 sudo sed -i '80a ,"runtimeOptions": {"configProperties": {"System.GC.Server": true}}  ' project.json
 sudo sed -i 's/!IsRunningOnWindows || IsRunningOnMono || IsRunningOnNanoServer/false/g' Platform.cs
-sudo sed -i '12d' config.json
 ReplaceDataBase $1 $2
-sudo /home/asplab/.dotnet/dotnet --version > ${LogSharePath}/Linux${1}${2}/version.log 
-sudo /home/asplab/.dotnet/dotnet restore --infer-runtimes > ${LogSharePath}/Linux${1}${2}/restore.log 
+sudo /home/asplab/.dotnet/dotnet --version > ${LogSharePath}/Linux${1}${2}/version.log
+sudo /home/asplab/.dotnet/dotnet restore --infer-runtimes > ${LogSharePath}/Linux${1}${2}/restore.log
 sudo /home/asplab/.dotnet/dotnet publish -c release > ${LogSharePath}/Linux${1}${2}/publish.log
-#cd bin/release/netcoreapp1.0/publish
-#sudo /home/asplab/.dotnet/dotnet HelloWorldMvc.dll &> ${LogSharePath}/Linux${1}${2}/Kestrel.log
+cd bin/release/netcoreapp1.0/publish
+sudo /home/asplab/.dotnet/dotnet MusicStore.dll &> ${LogSharePath}/Linux${1}${2}/Kestrel.log
 }
 
 CleanUp

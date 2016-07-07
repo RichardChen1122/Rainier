@@ -12,6 +12,7 @@ sudo rm -rf ~/.local
 sudo rm -rf /usr/share/dotnet
 sudo rm /usr/share/nginx/*.log
 sudo rm -rf /tmp/NugetScratch
+sudo rm -rf /usr/share/nginx/on
 }
 function CloneAndBuild()
 {
@@ -30,8 +31,8 @@ sudo sed -i 's/"net451"/\/\/"net451"/g' project.json
 sudo /home/asplab/.dotnet/dotnet --version > ${LogSharePath}/Linux${1}${2}/version.log 
 sudo /home/asplab/.dotnet/dotnet restore --infer-runtimes > ${LogSharePath}/Linux${1}${2}/restore.log 
 sudo /home/asplab/.dotnet/dotnet publish -c release > ${LogSharePath}/Linux${1}${2}/publish.log 
-#cd bin/release/netcoreapp1.0/publish
-#sudo /home/asplab/.dotnet/dotnet HelloWorldMvc.dll &> ${LogSharePath}/Linux${1}${2}/Kestrel.log
+cd bin/release/netcoreapp1.0/publish
+sudo /home/asplab/.dotnet/dotnet HelloWorldMvc.dll &> ${LogSharePath}/Linux${1}${2}/Kestrel.log
 }
 
 CleanUp
