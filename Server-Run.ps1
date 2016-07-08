@@ -143,8 +143,8 @@ function CloneAndBuild{
     }
 
     Start-Process -FilePath "$GitPath\cmd\git.exe" -ArgumentList "clone $GitUrl" -WorkingDirectory $RepoPath -NoNewWindow -Wait;
-    (Get-Content "$RepoPath\Performance\nuget.config").Replace(
-        "https://www.myget.org/F/aspnetcirelease/api/v3/index.json","https://dotnet.myget.org/F/aspnet1/api/v3/index.json") | Set-Content "$RepoPath\Performance\nuget.config";
+    #(Get-Content "$RepoPath\Performance\nuget.config").Replace(
+        #"https://www.myget.org/F/aspnetcirelease/api/v3/index.json","https://dotnet.myget.org/F/aspnet1/api/v3/index.json") | Set-Content "$RepoPath\Performance\nuget.config";
     cd $RepoPath\Performance;
     cmd /c .\build.cmd;
     
