@@ -15,6 +15,7 @@ $AppName=$TestappName+$Branch;
 $SharePath="\\fastshare.file.core.windows.net\aspnet";
 #$SharePath="\\aaptperffs\labshare\AspnetCore\AzFileShare";
 $ResultSharePath="$SharePath\Reliability\$date\ServerWin$AppName";
+$ScriptPath="$env:SystemDrive\Rainier";
 
 function KillProcess
 {
@@ -85,6 +86,10 @@ function AssignUserPermission
 function CreateSharePath{
     echo "Create Result Share Path";
 
+    if($AppConnectionStringName -eq "MusicStoreE2E"){
+       #$AppName=$AppConnectionStringName+$Branch;
+       $ResultSharePath="$SharePath\Reliability\$date\ServerWin$AppConnectionStringName$Branch";
+        }
     if(!(Test-Path $ResultSharePath)){
         mkdir $ResultSharePath;
     }
@@ -127,6 +132,11 @@ function ChangeConfiguration{
         "..\logs\stdout.log",".\stdout.log") | Set-Content "$SitePhysicalPath\web.config";
     }
     
+    if($AppConnectionStringName -eq "MusicStoreE2E"){
+   
+    $ResultSharePath="$SharePath\Reliability\$date\ServerWin$AppConnectionStringName$Branch"
+    
+    }
     (Get-Content "$SitePhysicalPath\web.config").Replace(
     ".\stdout.log", "$ResultSharePath\kestrel.log"   ) | Set-Content "$SitePhysicalPath\web.config";  
     (Get-Content "$SitePhysicalPath\web.config").Replace(
