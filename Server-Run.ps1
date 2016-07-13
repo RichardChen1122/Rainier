@@ -193,5 +193,6 @@ Cleanup;
 CloneAndBuild;
 CopyBinaries;
 SetPhysicalPath;
+SyncRainierScript;
 ChangeConfiguration;
 
