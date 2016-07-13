@@ -95,11 +95,19 @@ function CreateSharePath{
     }
 }
 
+function SyncRainierScript{
+
+Start-Process -FilePath "$GitPath\cmd\git.exe" -ArgumentList "clone https://github.com/RichardChen1122/Rainier.git" -WorkingDirectory "$env:SystemDriver\" -NoNewWindow -Wait;
+cmd /c xcopy /e /y $ScriptPath "$SharePath\Scripts";
+
+}
+
+
 function ChangeConfiguration{
 
     if($TestappName -eq "MusicStore")
     {
-        $FilePath=".\ConnectionString.json";
+        $FilePath="$SharePath\Scripts\ConnectionString.json";
         $content=( ( Get-Content -Path $FilePath -Raw ) | ConvertFrom-JSON )
         
         $jsonitem=$content.Windows | where {$_.Name -eq $AppConnectionStringName -and $_.Branch -eq $Branch };              
@@ -132,11 +140,10 @@ function ChangeConfiguration{
         "..\logs\stdout.log",".\stdout.log") | Set-Content "$SitePhysicalPath\web.config";
     }
     
-    if($AppConnectionStringName -eq "MusicStoreE2E"){
-   
+    if($AppConnectionStringName -eq "MusicStoreE2E"){   
     $ResultSharePath="$SharePath\Reliability\$date\ServerWin$AppConnectionStringName$Branch"
-    
-    }
+        }
+
     (Get-Content "$SitePhysicalPath\web.config").Replace(
     ".\stdout.log", "$ResultSharePath\kestrel.log"   ) | Set-Content "$SitePhysicalPath\web.config";  
     (Get-Content "$SitePhysicalPath\web.config").Replace(
