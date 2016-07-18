@@ -25,7 +25,7 @@ chmod 777 ./jq
 sudo cp jq /usr/bin
 mkdir -p ~/${1}
 cd ~/${1}
-git clone https://github.com/aspnet/musicStore/
+git clone -b ${1} https://github.com/aspnet/musicStore/
 cd musicStore
 sh build.sh
 }
