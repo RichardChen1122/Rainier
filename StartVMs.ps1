@@ -1,6 +1,6 @@
-﻿Import-module .\Invoke-Parallel.ps1 -Force;
-#$AzureRMAccount=Select-AzureRmProfile -Path "d:\Richard\myprofile.json";
-$AzureRMAccount = Add-AzureRmAccount
+﻿Import-module C:\Users\v-juche\git\Rainier\Invoke-Parallel.ps1 -Force;
+$AzureRMAccount=Select-AzureRmProfile -Path "d:\Richard\myprofile.json";
+
 $SubscriptionName = Get-AzureRmSubscription | sort SubscriptionName | Select SubscriptionName;
 $TenantId = $AzureRMAccount.Context.Tenant.TenantId;
 
@@ -32,7 +32,7 @@ function StartVMs
          
         }
     }
-    $vmrunninglist | Invoke-Parallel -ImportVariables -NoCloseOnTimeout -ScriptBlock {
+    $vmstoppedlist | Invoke-Parallel -ImportVariables -NoCloseOnTimeout -ScriptBlock {
         Start-AzureRmVM -ResourceGroupName $_.ResourceName -Name $_.MachineName
         }
 }
