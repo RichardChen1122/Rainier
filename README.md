@@ -3,7 +3,7 @@ Asp.net core performance and reliability testing automation
 
 hahahah
 
-#POST Method
+##POST Method
      [HttpPost]
         public ActionResult Create(string objectJson)
         {
@@ -22,3 +22,15 @@ hahahah
 
             return null;
         }
+
+##jquery extend
+	(function( $ ){
+		$.fn.tooltip = function( options ) {
+	};
+	//equals
+	var tooltip = {
+	function(options){
+		}
+	};
+	$.fn.extend(tooltip) = $.prototype.extend(tooltip) = $.fn.tooltip
+	})( jQuery );
